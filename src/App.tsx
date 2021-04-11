@@ -18,7 +18,7 @@ function App() {
     labels: data.map((d) => d.report_date.toDateString()),
     datasets: [
       {
-        label: 'My First dataset',
+        label: 'Ratio of Ontario population with at least one dose',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
