@@ -4,7 +4,7 @@ import jsonp from "jsonp";
 import useVaccineData from "./data/useVaccineData";
 
 function App() {
-  const { data } = useVaccineData();
+  const { data, derived } = useVaccineData();
 
   useEffect(() => {
     jsonp(
@@ -14,7 +14,8 @@ function App() {
   }, []);
 
   return (
-    <div >
+    <div>
+      <pre>{JSON.stringify(derived, null, 2)}</pre>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
