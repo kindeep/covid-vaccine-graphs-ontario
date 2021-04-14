@@ -80,6 +80,7 @@ function App() {
         borderColor: "rgba(75, 75, 75, 1)",
         data: ratiosExtrp, 
         borderDash: [20, 20],
+        borderWidth: 0,
         pointBorderColor: "rgba(0,0,0,0)",
       },
     ],
