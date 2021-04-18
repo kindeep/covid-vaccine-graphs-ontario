@@ -32,12 +32,10 @@ function App() {
     const lastIndex = allDates.findIndex(
       (r) => r.toDateString() === last.report_date.toDateString()
     );
-    console.log({ last, lastIndex });
     const f = line(lastIndex, last.at_least_1_ratio, allDates.length - 1, 0.75);
 
     allDates.forEach((date, index) => {
       if (date >= last.report_date) {
-        console.log({ index });
         extrMap[date.toDateString()] = f(index);
       }
     });
