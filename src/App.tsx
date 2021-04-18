@@ -16,7 +16,15 @@ function App() {
   const { data } = useVaccineData();
 
   const allDates: Date[] = [];
-  const byDate = new Date("June 5, 2021");
+  let byDate = new Date("June 5, 2021");
+
+  if (data && data.length > 0) {
+    const last = data[data.length - 1];
+    if (last.report_date > byDate) {
+      byDate = last.report_date;
+    }
+  }
+
   let currDate = new Date("December 24, 2020");
 
   while (currDate <= byDate) {
@@ -29,6 +37,7 @@ function App() {
 
   if (data && data.length > 0) {
     const last = data[data.length - 1];
+
     const lastIndex = allDates.findIndex(
       (r) => r.toDateString() === last.report_date.toDateString()
     );
