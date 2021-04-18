@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import useVaccineData from "./data/useVaccineData";
+import useVaccineData, { ResVaccineDataRecord } from "./data/useVaccineData";
 import { ChartData, Line } from "react-chartjs-2";
 import { ChartData as OrigChartData } from "chart.js";
 
-const one_day_ms = 24 * 60 * 60 * 100;
+const one_day_ms = 86400000;
 
 const line = (x1: number, y1: number, x2: number, y2: number) => (
   x: number
@@ -13,40 +13,47 @@ const line = (x1: number, y1: number, x2: number, y2: number) => (
 };
 
 function App() {
-  const { data, derived } = useVaccineData();
-  let allDates: Date[] = [];
-  let ratiosExtrp: (number | null)[] = [];
-  if (data && data.length > 2) {
-    const extDates: Date[] = [];
-    const lastInd = data.length - 1;
-    const lastDate = data[lastInd].report_date;
-    const lastRatio = derived.at_least_1_ratio[lastInd];
-    const byDate = new Date("June 5, 2021");
-    let currDate = lastDate;
+  const { data } = useVaccineData();
 
-    while (currDate <= byDate) {
-      extDates.push(currDate);
-      currDate = new Date(currDate.getTime() + one_day_ms);
-    }
+  const allDates: Date[] = [];
+  const byDate = new Date("June 5, 2021");
+  let currDate = new Date("December 24, 2020");
 
-    // y = ((y2 - y1) / (x2 - x1)) * (x - x1) + y1
+  while (currDate <= byDate) {
+    allDates.push(currDate);
+    currDate = new Date(currDate.getTime() + one_day_ms);
+  }
 
-    const f = line(0, lastRatio, extDates.length - 1, 0.75);
+  const dataMap: { [key: string]: ResVaccineDataRecord } = {};
+  const extrMap: { [key: string]: number } = {};
 
-    const knownDates = data.map((d) => d.report_date);
-    allDates = [...knownDates];
-    allDates.splice(-1, 1);
-    allDates = [...allDates, ...extDates];
+  if (data && data.length > 0) {
+    const last = data[data.length - 1];
+    const lastIndex = allDates.findIndex(
+      (r) => r.toDateString() === last.report_date.toDateString()
+    );
+    console.log({ last, lastIndex });
+    const f = line(lastIndex, last.at_least_1_ratio, allDates.length - 1, 0.75);
 
-    ratiosExtrp = allDates.map((_, index) => {
-      const x = index - lastInd;
-      if (x >= 0) {
-        return f(x);
-      } else {
-        return null;
+    allDates.forEach((date, index) => {
+      if (date >= last.report_date) {
+        console.log({ index });
+        extrMap[date.toDateString()] = f(index);
       }
     });
   }
+
+  data.forEach((val) => {
+    dataMap[val.report_date.toDateString()] = val;
+  });
+
+  const ratios = allDates.map((date) => {
+    return dataMap[date.toDateString()]?.at_least_1_ratio;
+  });
+
+  const extr = allDates.map((date) => {
+    return extrMap[date.toDateString()];
+  });
 
   const chartData: ChartData<OrigChartData> = {
     labels: allDates.map((d) => d.toDateString()),
@@ -70,7 +77,7 @@ function App() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: derived.at_least_1_ratio,
+        data: ratios,
       },
       {
         type: "line",
@@ -78,7 +85,7 @@ function App() {
         fill: false,
         backgroundColor: "rgba(0,0,0,0)",
         borderColor: "rgba(75, 75, 75, 1)",
-        data: ratiosExtrp, 
+        data: extr,
         borderDash: [20, 20],
         borderWidth: 0,
         pointBorderColor: "rgba(0,0,0,0)",
@@ -87,7 +94,7 @@ function App() {
   };
 
   return (
-    <div style={{height: "100vh"}}>
+    <div style={{ height: "100vh" }}>
       <Line data={chartData}></Line>
     </div>
   );

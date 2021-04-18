@@ -18,6 +18,11 @@ export interface VaccineDataRecord {
   total_doses_in_fully_vaccinated_individuals: number;
   total_individuals_fully_vaccinated: number;
 }
+
+export interface ResVaccineDataRecord extends VaccineDataRecord {
+  at_least_1: number;
+  at_least_1_ratio: number;
+}
 export interface UnparsedVaccineDataRecord {
   report_date: string;
   previous_day_doses_administered: string;
@@ -26,9 +31,9 @@ export interface UnparsedVaccineDataRecord {
   total_individuals_fully_vaccinated: string;
 }
 
-const ontario_population = 14.57 * 1000000;
+export const ontario_population = 14.57 * 1000000;
 
-function subtract(a1: number[], a2: number[]): number[] {
+export function subtract(a1: number[], a2: number[]): number[] {
   const res: number[] = [];
 
   const mxlen = Math.max(a1.length, a2.length);
@@ -47,7 +52,7 @@ function multiply(arr: number[], by: number): number[] {
   return arr.map((num) => num * by);
 }
 
-function divide(arr: number[], by: number): number[] {
+export function divide(arr: number[], by: number): number[] {
   return multiply(arr, 1 / by);
 }
 
@@ -81,30 +86,21 @@ export default function useVaccineData() {
 
   const records: VaccineDataRecord[] = tempRecords.map(parseRecord);
 
-  const total_individuals_fully_vaccinated: number[] = records.map(
-    (r) => r.total_individuals_fully_vaccinated
-  );
-
-  const total_doses_administered: number[] = records.map(
-    (r) => r.total_doses_administered as any
-  );
-
-  const at_least_1 = subtract(
-    total_doses_administered,
-    total_individuals_fully_vaccinated
-  );
-
-  const at_least_1_ratio = divide(at_least_1, ontario_population);
-
-  return {
-    data: records,
-    failed,
-    loading,
-    derived: {
+  const resRecords: ResVaccineDataRecord[] = records.map((record) => {
+    const at_least_1 =
+      record.total_doses_administered -
+      record.total_individuals_fully_vaccinated;
+    const at_least_1_ratio = at_least_1 / ontario_population;
+    return {
+      ...record,
       at_least_1,
       at_least_1_ratio,
-      total_individuals_fully_vaccinated,
-      total_doses_administered
-    },
+    };
+  });
+
+  return {
+    data: resRecords,
+    failed,
+    loading,
   };
 }
