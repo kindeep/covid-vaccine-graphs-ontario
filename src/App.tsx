@@ -16,7 +16,7 @@ function App() {
   const { data } = useVaccineData();
 
   const allDates: Date[] = [];
-  let byDate = new Date("June 5, 2021");
+  let byDate = new Date("June 20, 2021");
 
   if (data && data.length > 0) {
     const last = data[data.length - 1];
@@ -88,7 +88,7 @@ function App() {
       },
       {
         type: "line",
-        label: "Required trajectory for 75% by June 5",
+        label: "Required trajectory for 75% by June 20",
         fill: false,
         backgroundColor: "rgba(0,0,0,0)",
         borderColor: "rgba(75, 75, 75, 1)",
