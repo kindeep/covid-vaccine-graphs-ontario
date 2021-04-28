@@ -56,21 +56,22 @@ export function divide(arr: number[], by: number): number[] {
   return multiply(arr, 1 / by);
 }
 
-function strNumToInt(inp: string) {
+function parseDataNumAsInt(inp: string | number) {
+  if (typeof inp === "number") return inp;
   return inp ? parseInt(inp.replace(/,/g, "")) : 0;
 }
 
 function parseRecord(record: UnparsedVaccineDataRecord): VaccineDataRecord {
   return {
     report_date: new Date(record.report_date),
-    previous_day_doses_administered: strNumToInt(
+    previous_day_doses_administered: parseDataNumAsInt(
       record.previous_day_doses_administered
     ),
-    total_doses_administered: strNumToInt(record.total_doses_administered),
-    total_doses_in_fully_vaccinated_individuals: strNumToInt(
+    total_doses_administered: parseDataNumAsInt(record.total_doses_administered),
+    total_doses_in_fully_vaccinated_individuals: parseDataNumAsInt(
       record.total_doses_in_fully_vaccinated_individuals
     ),
-    total_individuals_fully_vaccinated: strNumToInt(
+    total_individuals_fully_vaccinated: parseDataNumAsInt(
       record.total_individuals_fully_vaccinated
     ),
   };
