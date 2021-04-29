@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/covid-vaccine-graphs-ontario/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/covid-vaccine-graphs-ontario/static/js/main.3bb0d189.chunk.js",
-    "main.js.map": "/covid-vaccine-graphs-ontario/static/js/main.3bb0d189.chunk.js.map",
-    "runtime-main.js": "/covid-vaccine-graphs-ontario/static/js/runtime-main.1504c5c5.js",
-    "runtime-main.js.map": "/covid-vaccine-graphs-ontario/static/js/runtime-main.1504c5c5.js.map",
-    "static/js/2.e1d0d8aa.chunk.js": "/covid-vaccine-graphs-ontario/static/js/2.e1d0d8aa.chunk.js",
-    "static/js/2.e1d0d8aa.chunk.js.map": "/covid-vaccine-graphs-ontario/static/js/2.e1d0d8aa.chunk.js.map",
-    "static/js/3.896be207.chunk.js": "/covid-vaccine-graphs-ontario/static/js/3.896be207.chunk.js",
-    "static/js/3.896be207.chunk.js.map": "/covid-vaccine-graphs-ontario/static/js/3.896be207.chunk.js.map",
+    "main.js": "/covid-vaccine-graphs-ontario/static/js/main.baca113e.chunk.js",
+    "main.js.map": "/covid-vaccine-graphs-ontario/static/js/main.baca113e.chunk.js.map",
+    "runtime-main.js": "/covid-vaccine-graphs-ontario/static/js/runtime-main.ad7904e5.js",
+    "runtime-main.js.map": "/covid-vaccine-graphs-ontario/static/js/runtime-main.ad7904e5.js.map",
+    "static/js/2.e51e70af.chunk.js": "/covid-vaccine-graphs-ontario/static/js/2.e51e70af.chunk.js",
+    "static/js/2.e51e70af.chunk.js.map": "/covid-vaccine-graphs-ontario/static/js/2.e51e70af.chunk.js.map",
+    "static/js/3.f3e714da.chunk.js": "/covid-vaccine-graphs-ontario/static/js/3.f3e714da.chunk.js",
+    "static/js/3.f3e714da.chunk.js.map": "/covid-vaccine-graphs-ontario/static/js/3.f3e714da.chunk.js.map",
     "index.html": "/covid-vaccine-graphs-ontario/index.html",
     "static/css/main.9d5b29c0.chunk.css.map": "/covid-vaccine-graphs-ontario/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.e1d0d8aa.chunk.js.LICENSE.txt": "/covid-vaccine-graphs-ontario/static/js/2.e1d0d8aa.chunk.js.LICENSE.txt"
+    "static/js/2.e51e70af.chunk.js.LICENSE.txt": "/covid-vaccine-graphs-ontario/static/js/2.e51e70af.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.1504c5c5.js",
-    "static/js/2.e1d0d8aa.chunk.js",
+    "static/js/runtime-main.ad7904e5.js",
+    "static/js/2.e51e70af.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.3bb0d189.chunk.js"
+    "static/js/main.baca113e.chunk.js"
   ]
 }
